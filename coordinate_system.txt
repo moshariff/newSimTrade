@@ -4,7 +4,7 @@ package Hello;
 import java.util.Scanner;
 
 /*
- * Class where main function resides
+ * Class where main function resides 
  */
 
 public class HelloWorld
@@ -145,6 +145,9 @@ public String toString()
      System.out.println("(m,n)"+ point.toString());
 	 }
 	 
+/*
+ * Function which finds the quadrant in which the point lies
+ */
 	 public void location()
 	 {
 		 
