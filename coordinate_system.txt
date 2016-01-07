@@ -3,6 +3,9 @@ package Hello;
 
 import java.util.Scanner;
 
+/*
+ * Class where main function resides
+ */
 
 public class HelloWorld
 {
