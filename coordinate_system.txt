@@ -1,0 +1,182 @@
+package Hello;
+
+
+import java.util.Scanner;
+
+/*
+ * Class where main function resides 
+ */
+
+public class HelloWorld
+{
+		
+	public static void main(String[] args)
+	{ 
+		
+		
+		FindTheQuadrant loc = new FindTheQuadrant();
+		loc.lineCreation();
+		
+		System.out.println("enter the number of coordinates to be classified");
+		Scanner in1 = new Scanner(System.in);
+		int num=in1.nextInt();
+		
+		for(int i=0; i<num; i++)
+		{
+		loc.newPoint();
+		loc.location();
+		}
+	}
+}
+
+/*
+ * Class to define all the members used in the program
+ */
+class coordinateMembers
+{
+	  Scanner in = new Scanner(System.in);
+	protected double[] x=new double[3];
+	protected double[] y=new double[3];
+	protected double m;
+	protected double n;
+	protected double a;
+	protected double b;
+	protected double c;
+	protected String Location1;
+	protected String Location2;
+}
+
+/*
+ * class to display the coordinates in (X,Y) format
+ */
+ class coordinateDisplay 
+{
+private double x;
+private double y;
+
+public coordinateDisplay(double x, double y)
+{
+    this.x=x;
+    this.y=y;
+}
+public String toString()
+{
+    return "("+ this.x+","+this.y+")";
+}
+}
+ 
+ 
+ /*
+  * Class to create new Lines by taking coordinates of the lines from user
+  */
+ class CreateLine extends coordinateMembers
+ {
+	 
+	
+	public void Lines()
+	{
+		for(int i =0 ; i<2; i++)
+		{	System.out.println("Enter the coordinates for x"+(i+1)+"y"+(i+1));
+			x[i]=in.nextDouble();
+			y[i]=in.nextDouble();
+		}
+		
+		for(int i =0 ; i<2; i++)
+		{
+		
+			coordinateDisplay point= new coordinateDisplay(x[i], y[i]);
+         System.out.println("(x["+(i+1)+"],y["+(i+1)+"])= "+" "+ point.toString());
+         
+		} 
+		
+	}
+ 
+		
+		
+		/*
+		 * Function to find whether the new point lies above or below the lines created
+		 */
+	
+		 public String calcVariables(double xco, double yco)
+			{
+				a=y[0]-y[1];
+				b=x[1]-x[0];
+				c= ((x[0]-x[1])*y[0]) + ((y[1]-y[0])*x[0]);
+				System.out.println("a/b/c = " + a +"/" +b + "/"+c);
+				 if (((((a*xco)+(b*yco)+c)>0) && (b>0)) || (((a*xco)+(b*yco)+c<0) && (b<0)))
+					{
+					return "up";
+					}
+					else 
+						return "down";
+
+			}
+			
+	 
+	
+ }
+
+ /*
+  * Class to find the quadrant in which the point lies
+  */
+ 
+ class FindTheQuadrant extends coordinateMembers 
+	{
+	 CreateLine Line1 = new CreateLine();
+	 CreateLine Line2 = new CreateLine();
+	  
+	public void lineCreation()
+	{
+		  System.out.println("Enter the coordinates for Line1");
+		Line1.Lines();
+			
+			System.out.println("Enter the coordinates for Line2");
+			Line2.Lines();
+		    
+			
+	}
+	
+	 public void newPoint()
+	 {
+	 System.out.println("Enter the coordinate to be classified");
+	 m=in.nextDouble();
+	 n=in.nextDouble();
+	 coordinateDisplay point= new coordinateDisplay(m, n);
+     System.out.println("(m,n)"+ point.toString());
+	 }
+	 
+/*
+ * Function which finds the quadrant in which the point lies
+ */
+	 public void location()
+	 {
+		 
+			Location1=Line1.calcVariables(m, n);
+			Location2=Line2.calcVariables(m, n);
+			
+		 if(Location1.equals("up") && Location2.equals("up"))
+			{
+				System.out.println("Quadrant 1");
+			}
+
+			else if(Location1.equals("up") && Location2.equals("down"))
+			{
+				System.out.println("Quadrant 2");
+			}
+
+			else if(Location1.equals("down") && Location2.equals("up"))
+			{
+				System.out.println("Quadrant 3");
+			}
+
+			else if(Location1.equals("down") && Location2.equals("down"))
+			{
+				System.out.println("Quadrant 4");
+			}
+			
+	 }
+	}
+ 
+ 
+ 
+ 
